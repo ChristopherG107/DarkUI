@@ -92,6 +92,7 @@ local function DevelopUI(NewValue)
 		)
 		return MainFrame, Initilize 
 	else
+		print("FiredB")
 		local MainFrame = AddFrame(
 			Initilize,
 			'MainUI',
