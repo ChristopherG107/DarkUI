@@ -74,8 +74,8 @@ local function AddFrame(Parent,Name,Position,Size)
 	Frame.AnchorPoint = Vector2.new(0.5,0.5)
 	Frame.Position = Position
 	Frame.Size = Size
-	Frame.BackgroundColor3 = DarkUIConfig.BackgroundColor.Value
-	Frame.BorderColor3 = DarkUIConfig.BorderColor.Value
+	Frame.BackgroundColor3 = DarkUIConfig.Colors.BackgroundColor.Value
+	Frame.BorderColor3 = DarkUIConfig.Colors.BorderColor.Value
 	Frame.BorderSizePixel = 2
 	return Frame
 end
