@@ -68,6 +68,7 @@ local function DarkUIInitilize()
 	return DarkUI
 end
 
+
 local function AddFrame(Parent,Name,Position,Size)
 	local Frame = Instance.new("Frame",Parent)
 	Frame.Name = Name
@@ -75,7 +76,7 @@ local function AddFrame(Parent,Name,Position,Size)
 	Frame.Position = Position
 	Frame.Size = Size
 	Frame.BackgroundColor3 = DarkUIConfig.Colors.BackgroundColor.Value
-	Frame.BorderColor3 = DarkUIConfig..BorderColor.Value
+	Frame.BorderColor3 = DarkUIConfig.Colors.BorderColor.Value
 	Frame.BorderSizePixel = 2
 	return Frame
 end
@@ -91,7 +92,6 @@ local function DevelopUI(NewValue)
 		)
 		return MainFrame, Initilize 
 	else
-        print("FiredB")
 		local MainFrame = AddFrame(
 			Initilize,
 			'MainUI',
@@ -107,7 +107,7 @@ if DarkUIConfig.Positions.PosXScale ~= nil then
 else
 	ActivePart, GInitilize = DevelopUI(nil)
 end
-
+	
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/ChristopherG107/DarkUI/main/Main.lua"))()
 end)
