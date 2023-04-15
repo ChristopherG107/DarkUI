@@ -12,21 +12,38 @@ dragstart = nil
 dragspeed = 0.01
 StartPos = nil
 ActivePart = nil
+DarkUIConfig = nil
 
 --Add the Configs
-local DarkUIConfig = Instance.new("Folder",game.ReplicatedStorage)
-DarkUIConfig.Name = "DarkUIConfig"
+if not game.ReplicatedStorage:FindFirstChild("DarkUIConfig") then
+	DarkUIConfig = Instance.new("Folder",game.ReplicatedStorage)
+	DarkUIConfig.Name = "DarkUIConfig"
+	
+	local Colors = Instance.new("Folder",DarkUIConfig)
+	Colors.Name = "Colors"
 
-local Colors = Instance.new("Folder",DarkUIConfig)
-Colors.Name = "Colors"
+	local BackgroundColor = Instance.new("Color3Value",Colors)
+	BackgroundColor.Name = "BackgroundColor"
+	BackgroundColor.Value = Color3.fromRGB(39, 39, 39)
 
-local BackgroundColor = Instance.new("Color3Value",Colors)
-BackgroundColor.Name = "BackgroundColor"
-BackgroundColor.Value = Color3.fromRGB(39, 39, 39)
-
-local BorderColor = Instance.new("Color3Value",Colors)
-BorderColor.Name = "BorderColor"
-BorderColor.Value = Color3.fromRGB(117, 24, 109)
+	local BorderColor = Instance.new("Color3Value",Colors)
+	BorderColor.Name = "BorderColor"
+	BorderColor.Value = Color3.fromRGB(117, 24, 109)
+	
+	local Positions = Instance.new("Frame",DarkUIConfig)
+	Positions.Name = "Position"
+	
+	local PosXScale = Instance.new("NumberValue",Positions)
+	PosXScale.Name = "PosXScale"
+	local PosXOffset= Instance.new("NumberValue",Positions)
+	PosXOffset.Name = "PosXOffset"
+	local PosYScale = Instance.new("NumberValue",Positions)
+	PosYScale.Name = "PosYScale"
+	local PosYOffset = Instance.new("NumberValue",Positions)
+	PosYOffset.Name = "PosYOffset"
+else
+	DarkUIConfig = game.ReplicatedStorage:FindFirstChild("DarkUIConfig")
+end
 
 --End of Configs
 local function UpdateInput(input)
@@ -57,8 +74,8 @@ local function AddFrame(Parent,Name,Position,Size)
 	Frame.AnchorPoint = Vector2.new(0.5,0.5)
 	Frame.Position = Position
 	Frame.Size = Size
-	Frame.BackgroundColor3 = BackgroundColor.Value
-	Frame.BorderColor3 = BorderColor.Value
+	Frame.BackgroundColor3 = DarkUIConfig.BackgroundColor.Value
+	Frame.BorderColor3 = DarkUIConfig.BorderColor.Value
 	Frame.BorderSizePixel = 2
 	return Frame
 end
@@ -69,7 +86,7 @@ local function DevelopUI(NewValue)
 		local MainFrame = AddFrame(
 			Initilize,
 			'MainUI',
-			UDim2.new(GMainFrameActivePosition),
+			UDim2.new(NewValue),
 			UDim2.new(0,478,0,516)
 		)
 		return MainFrame, Initilize 
@@ -84,7 +101,13 @@ local function DevelopUI(NewValue)
 	end
 end
 
-ActivePart, GInitilize = DevelopUI()
+if DarkUIConfig.Positions.PosXScale ~= nil then
+	ActivePart, GInitilize = DevelopUI(UDim2.new(DarkUIConfig.Positions.PosXScale, DarkUIConfig.Positions.PosXOffset, DarkUIConfig.Positions.PosYScale, DarkUIConfig.Positions.PosYOffset))
+else
+	ActivePart, GInitilize = DevelopUI(nil)
+end
+
+
  
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/ChristopherG107/DarkUI/main/Main.lua"))()
