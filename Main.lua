@@ -5,6 +5,7 @@ UIS = game:GetService("UserInputService")
 TS = game:GetService("TweenService")
 --Locals
 GMainFrame = nil
+GMainFrameActivePosition = nil
 GInitilize = nil
 Draggable = false
 dragstart = nil
@@ -74,12 +75,15 @@ local function DevelopUI()
 	return MainFrame, Initilize 
 end
 
+
 GMainFrame, GInitilize = DevelopUI()
 ActivePart = GMainFrame
+GMainFrameActivePosition = GMainFrame.Position
 
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
 	GMainFrame, GInitilize = DevelopUI()
 	ActivePart = GMainFrame
+	GMainFrameActivePosition = GMainFrame.Position
 end)
 
 GMainFrame.InputBegan:Connect(function(input)
@@ -89,6 +93,7 @@ GMainFrame.InputBegan:Connect(function(input)
 		StartPos = GMainFrame.Position
 		input.Changed:Connect(function()
 			if input.UserInputState == Enum.UserInputState.End then
+				GMainFrameActivePosition = GMainFrame.Position
 				Draggable = false
 			end
 		end)
@@ -102,4 +107,3 @@ UIS.InputChanged:Connect(function(input)
 		end
 	end
 end)
-
