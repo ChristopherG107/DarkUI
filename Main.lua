@@ -63,37 +63,41 @@ local function AddFrame(Parent,Name,Position,Size)
 	return Frame
 end
 
-local function DevelopUI()
+local function DevelopUI(NewValue)
 	local Initilize = DarkUIInitilize()
-	
-	local MainFrame = AddFrame(
-		Initilize,
-		'MainUI',
-		UDim2.new(0.5,0,0.5,0),
-		UDim2.new(0,478,0,516)
-	)
-	return MainFrame, Initilize 
+	if NewValue ~= nil then
+		local MainFrame = AddFrame(
+			Initilize,
+			'MainUI',
+			UDim2.new(GMainFrameActivePosition),
+			UDim2.new(0,478,0,516)
+		)
+		return MainFrame, Initilize 
+	else
+		local MainFrame = AddFrame(
+			Initilize,
+			'MainUI',
+			UDim2.new(0.5,0,0.5,0),
+			UDim2.new(0,478,0,516)
+		)
+		return MainFrame, Initilize 
+	end
 end
 
-
-GMainFrame, GInitilize = DevelopUI()
-ActivePart = GMainFrame
-GMainFrameActivePosition = GMainFrame.Position
-
+ActivePart, GInitilize = DevelopUI()
+ 
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
-	GMainFrame, GInitilize = DevelopUI()
-	ActivePart = GMainFrame
-	GMainFrameActivePosition = GMainFrame.Position
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/ChristopherG107/DarkUI/main/Main.lua"))()
 end)
 
-GMainFrame.InputBegan:Connect(function(input)
+ActivePart.InputBegan:Connect(function(input)
 	if (input.UserInputType == Enum.UserInputType.MouseButton1) then
 		Draggable = true
 		dragstart = input.Position
-		StartPos = GMainFrame.Position
+		StartPos = ActivePart.Position
 		input.Changed:Connect(function()
 			if input.UserInputState == Enum.UserInputState.End then
-				GMainFrameActivePosition = GMainFrame.Position
+				GMainFrameActivePosition = ActivePart.Position
 				Draggable = false
 			end
 		end)
