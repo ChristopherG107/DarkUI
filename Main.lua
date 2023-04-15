@@ -31,7 +31,7 @@ if not game.ReplicatedStorage:FindFirstChild("DarkUIConfig") then
 	BorderColor.Value = Color3.fromRGB(117, 24, 109)
 	
 	local Positions = Instance.new("Frame",DarkUIConfig)
-	Positions.Name = "Position"
+	Positions.Name = "Positions"
 	
 	local PosXScale = Instance.new("NumberValue",Positions)
 	PosXScale.Name = "PosXScale"
