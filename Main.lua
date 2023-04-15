@@ -110,7 +110,8 @@ else
 end
 	
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
-	--loadstring(game:HttpGet("https://raw.githubusercontent.com/ChristopherG107/DarkUI/main/Main.lua"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/ChristopherG107/DarkUI/main/Main.lua"))()
+    script:Destroy()
 end)
 
 ActivePart.InputBegan:Connect(function(input)
