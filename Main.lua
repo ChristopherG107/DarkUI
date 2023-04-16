@@ -29,18 +29,6 @@ if not game.ReplicatedStorage:FindFirstChild("DarkUIConfig") then
 	local BorderColor = Instance.new("Color3Value",Colors)
 	BorderColor.Name = "BorderColor"
 	BorderColor.Value = Color3.fromRGB(117, 24, 109)
-	
-	local Positions = Instance.new("Folder",DarkUIConfig)
-	Positions.Name = "Positions"
-	
-	local PosXScale = Instance.new("NumberValue",Positions)
-	PosXScale.Name = "PosXScale"
-	local PosXOffset= Instance.new("NumberValue",Positions)
-	PosXOffset.Name = "PosXOffset"
-	local PosYScale = Instance.new("NumberValue",Positions)
-	PosYScale.Name = "PosYScale"
-	local PosYOffset = Instance.new("NumberValue",Positions)
-	PosYOffset.Name = "PosYOffset"
 else
 	DarkUIConfig = game.ReplicatedStorage:FindFirstChild("DarkUIConfig")
 end
@@ -60,6 +48,7 @@ end
 local function DarkUIInitilize()
 	local DarkUI = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
 	DarkUI.Name = "DarkUI"
+	DarkUI.ResetOnSpawn = false
 
 	local Pathing = Instance.new("ObjectValue",DarkUI)
 	Pathing.Name = 'DarkUIConfigurationPath'
@@ -83,36 +72,16 @@ end
 
 local function DevelopUI(NewValue)
 	local Initilize = DarkUIInitilize()
-	if NewValue ~= nil then
-		local MainFrame = AddFrame(
-			Initilize,
-			'MainUI',
-			UDim2.new(NewValue),
-			UDim2.new(0,478,0,516)
-		)
+	local MainFrame = AddFrame(
+		Initilize,
+		'MainUI',
+		UDim2.new(0.5,0,0.5,0),
+		UDim2.new(0,478,0,516)
+	)
 		return MainFrame, Initilize 
-	else
-		print("FiredB")
-		local MainFrame = AddFrame(
-			Initilize,
-			'MainUI',
-			UDim2.new(0.5,0,0.5,0),
-			UDim2.new(0,478,0,516)
-		)
-		return MainFrame, Initilize 
-	end
 end
 
-if DarkUIConfig.Positions.PosXScale ~= nil then
-	ActivePart, GInitilize = DevelopUI(UDim2.new(DarkUIConfig.Positions.PosXScale, DarkUIConfig.Positions.PosXOffset, DarkUIConfig.Positions.PosYScale, DarkUIConfig.Positions.PosYOffset))
-else
-	ActivePart, GInitilize = DevelopUI(nil)
-end
-	
-game.Players.LocalPlayer.CharacterAdded:Connect(function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/ChristopherG107/DarkUI/main/Main.lua"))()
-    script:Destroy()
-end)
+ActivePart, GInitilize = DevelopUI()
 
 ActivePart.InputBegan:Connect(function(input)
 	if (input.UserInputType == Enum.UserInputType.MouseButton1) then
